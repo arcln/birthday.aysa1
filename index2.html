@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>برای تو ❤️</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Tahoma, Arial, sans-serif;
+    background: linear-gradient(135deg, #120018, #4b073d, #ff477e);
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ستاره ها */
+
+.stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    color: white;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    from {
+        opacity: 0.2;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+}
+
+/* صفحه اول */
+
+.page {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.card {
+    width: 100%;
+    max-width: 550px;
+    padding: 40px 25px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 30px;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+
+    animation: appear 1.5s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.heart {
+    font-size: 90px;
+    animation: heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat {
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+}
+
+h1 {
+    font-size: 42px;
+    margin: 15px 0;
+}
+
+.subtitle {
+    font-size: 20px;
+    line-height: 2;
+}
+
+button {
+    margin-top: 20px;
+    padding: 15px 35px;
+
+    border: none;
+    border-radius: 50px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    color: #d91b62;
+    background: white;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+/* صفحه اصلی */
+
+#mainPage {
+    display: none;
+}
+
+.section {
+    max-width: 700px;
+    margin: auto;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.title {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.text {
+    font-size: 19px;
+    line-height: 2;
+}
+
+/* شمارش معکوس */
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.time {
+    width: 90px;
+    padding: 15px 5px;
+
+    background: rgba(255,255,255,0.13);
+    border-radius: 20px;
+
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.time span {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.time small {
+    font-size: 13px;
+}
+
+/* پاکت نامه */
+
+.envelope {
+    position: relative;
+    width: 280px;
+    height: 180px;
+
+    margin: 50px auto 20px;
+
+    background: #ff6f91;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+
+    transition: 0.5s;
+}
+
+.envelope:hover {
+    transform: scale(1.05);
+}
+
+.envelope:before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 100px solid #ff9ab0;
+}
+
+.letter {
+    position: absolute;
+
+    width: 240px;
+    height: 140px;
+
+    background: white;
+
+    color: #d91b62;
+
+    left: 20px;
+    top: 20px;
+
+    padding: 20px;
+
+    border-radius: 8px;
+
+    opacity: 0;
+
+    transition: 1s;
+
+    font-weight: bold;
+}
+
+.envelope.open .letter {
+    opacity: 1;
+    transform: translateY(-100px);
+}
+
+.envelope.open {
+    margin-bottom: 120px;
+}
+
+/* پیام */
+
+.message {
+    display: none;
+
+    padding: 30px;
+
+    background: rgba(255,255,255,0.12);
+
+    border-radius: 25px;
+
+    line-height: 2.2;
+
+    font-size: 19px;
+
+    animation: appear 1s;
+}
+
+/* دکمه سورپرایز */
+
+.surprise {
+    margin-top: 50px;
+}
+
+.hidden {
+    display: none;
+}
+
+.final {
+    font-size: 28px;
+    line-height: 2;
+    margin-top: 25px;
+    animation: appear 1s;
+}
+
+/* قلب های شناور */
+
+.floating-heart {
+    position: fixed;
+    bottom: -30px;
+
+    font-size: 25px;
+
+    animation: floatUp 5s linear forwards;
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+
+}
+
+/* موبایل */
+
+@media(max-width:600px) {
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .title {
+        font-size: 30px;
+    }
+
+    .heart {
+        font-size: 70px;
+    }
+
+    .card {
+        padding: 30px 18px;
+    }
+
+    .time {
+        width: 75px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ستاره ها -->
+
+<div class="stars">
+
+    <span class="star" style="top:10%;left:15%;">✦</span>
+    <span class="star" style="top:20%;left:80%;">✧</span>
+    <span class="star" style="top:40%;left:25%;">✦</span>
+    <span class="star" style="top:70%;left:85%;">✧</span>
+    <span class="star" style="top:80%;left:15%;">✦</span>
+    <span class="star" style="top:30%;left:50%;">✧</span>
+
+</div>
+
+
+<!-- صفحه ورود -->
+
+<div class="page" id="welcomePage">
+
+    <div class="card">
+
+        <img src="./aysa.pjg.jpg"
+         style="width:150px;height:150px;object-fit:cover;
+         border-radius:50%;">
+
+        <h1>
+            یه چیزی برای تو دارم...
+        </h1>
+
+        <p class="subtitle">
+            این صفحه فقط برای یک نفر ساخته شده.
+            <br>
+            آماده‌ای؟ 👀❤️
+        </p>
+
+        <button onclick="start()">
+            شروع کن ✨
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- صفحه اصلی -->
+
+<div id="mainPage">
+
+
+    <!-- بخش اول -->
+
+    <section class="section">
+
+        <div class="heart">
+            💗
+        </div>
+
+        <h1 class="title">
+            برای خاص‌ترین آدم ❤️
+        </h1>
+
+        <p class="text">
+
+            شاید این فقط یه سایت باشه...
+            <br>
+            ولی تک‌تک قسمت‌هاش برای تو ساخته شده.
+            <br><br>
+            و هنوز کلی سورپرایز مونده... 🎁
+
+        </p>
+
+    </section>
+
+
+
+    <!-- شمارش معکوس -->
+
+    <section class="section">
+
+        <h2 class="title">
+            تا ۱۷ آبان 🎂
+        </h2>
+
+        <p class="text">
+            تا روز تولدت چقدر مونده؟
+        </p>
+
+        <div class="countdown">
+
+            <div class="time">
+                <span id="days">0</span>
+                <small>روز</small>
+            </div>
+
+            <div class="time">
+                <span id="hours">0</span>
+                <small>ساعت</small>
+            </div>
+
+            <div class="time">
+                <span id="minutes">0</span>
+                <small>دقیقه</small>
+            </div>
+
+            <div class="time">
+                <span id="seconds">0</span>
+                <small>ثانیه</small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- پاکت نامه -->
+
+    <section class="section">
+
+        <h2 class="title">
+            یه نامه برای تو 💌
+        </h2>
+
+        <p>
+            روی پاکت بزن...
+        </p>
+
+        <div class="envelope" onclick="openLetter()">
+
+            <div class="letter">
+
+                ❤️
+
+                <br>
+
+                برای تو
+
+                <br>
+
+                با عشق
+
+            </div>
+
+        </div>
+
+        <div class="message" id="message">
+
+            بعضی آدم‌ها میان توی زندگی آدم
+            <br>
+            و باعث میشن روزهای معمولی
+            <br>
+            قشنگ‌تر بشن...
+            <br><br>
+
+            تو برای من یکی از همون آدمایی ❤️
+
+        </div>
+
+    </section>
+
+
+
+    <!-- سورپرایز -->
+
+    <section class="section surprise">
+
+        <h2 class="title">
+            هنوز تموم نشده 🎁
+        </h2>
+
+        <p class="text">
+            روی این دکمه بزن...
+        </p>
+
+        <button onclick="surprise()">
+            سورپرایز نهایی ❤️
+        </button>
+
+        <div id="finalMessage" class="final hidden">
+
+            🎉❤️🎂❤️🎉
+
+            <br><br>
+
+            تولدت مبارک عزیزم ❤️
+
+            <br>
+            امیدوارم همیشه خوشحال باشی،
+            <br>
+            همیشه بخندی،
+            <br>
+            و هر چیزی که آرزو داری
+            بهش برسی.
+
+            <br><br>
+
+            ❤️ دوستت دارم ❤️
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+
+<script>
+
+/* شروع سایت */
+
+function start() {
+
+    document.getElementById("welcomePage").style.display = "none";
+
+    document.getElementById("mainPage").style.display = "block";
+
+    createHearts();
+
+}
+
+
+
+/* باز کردن نامه */
+
+function openLetter() {
+
+    document.querySelector(".envelope").classList.add("open");
+
+    setTimeout(function() {
+
+        document.getElementById("message").style.display = "block";
+
+    }, 700);
+
+}
+
+
+
+/* سورپرایز نهایی */
+
+function surprise() {
+
+    document.getElementById("finalMessage").classList.remove("hidden");
+
+    createHearts();
+
+}
+
+
+
+/* شمارش معکوس */
+
+function countdown() {
+
+    /*
+       17 Aban 1405
+       برابر با 8 November 2026
+    */
+
+    const birthday = new Date("2026-11-08T00:00:00");
+
+    const now = new Date();
+
+    const difference = birthday - now;
+
+    if (difference <= 0) {
+
+        document.getElementById("days").innerText = "🎂";
+
+        document.getElementById("hours").innerText = "❤️";
+
+        document.getElementById("minutes").innerText = "🎉";
+
+        document.getElementById("seconds").innerText = "🥳";
+
+        return;
+
+    }
+
+    const days = Math.floor(
+        difference / (1000 * 60 * 60 * 24)
+    );
+
+    const hours = Math.floor(
+        (difference / (1000 * 60 * 60)) % 24
+    );
+
+    const minutes = Math.floor(
+        (difference / (1000 * 60)) % 60
+    );
+
+    const seconds = Math.floor(
+        (difference / 1000) % 60
+    );
+
+    document.getElementById("days").innerText = days;
+
+    document.getElementById("hours").innerText = hours;
+
+    document.getElementById("minutes").innerText = minutes;
+
+    document.getElementById("seconds").innerText = seconds;
+
+}
+
+setInterval(countdown, 1000);
+
+countdown();
+
+
+
+/* قلب های متحرک */
+
+function createHearts() {
+
+    setInterval(function() {
+
+        const heart = document.createElement("div");
+
+        heart.className = "floating-heart";
+
+        const hearts = ["❤️","💗","💕","💖","💘","🌹"];
+
+        heart.innerText =
+            hearts[Math.floor(Math.random() * hearts.length)];
+
+        heart.style.left =
+            Math.random() * 100 + "vw";
+
+        heart.style.fontSize =
+            (15 + Math.random() * 25) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(function() {
+
+            heart.remove();
+
+        }, 5000);
+
+    }, 600);
+
+}
+
+</script>
+
+</body>
+</html>
